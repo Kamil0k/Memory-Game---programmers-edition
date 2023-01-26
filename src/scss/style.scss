@@ -1,0 +1,682 @@
+$main-color: #5092f5;
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-family: 'Rajdhani', sans-serif;
+	font-size: 1.6rem;
+	width: 100vw;
+	background: radial-gradient(circle, rgb(43, 44, 46) 0%, rgb(25, 25, 25) 93%);
+}
+
+//GENERAL CLASSES
+
+.modal-shadow {
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+	z-index: 10;
+
+	&--end {
+		display: none;
+	}
+}
+
+.modal {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 40%;
+	height: 60vh;
+	padding: 1em;
+	border-radius: 20px;
+	transform: translate(-50%, -50%);
+	background-color: #eee;
+	box-shadow: inset 0 0 20px 0 #42445a;
+	z-index: 20;
+}
+
+.brand {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	i {
+		font-size: 8rem;
+		margin-right: 0.3em;
+		color: $main-color;
+		text-shadow: 0px 0px 3px black;
+	}
+	p {
+		font-size: 3rem;
+		font-weight: bold;
+	}
+}
+
+.btn {
+	position: relative;
+	padding: 0.4em 1em;
+	font-size: 1.8rem;
+	text-transform: uppercase;
+	border: 2px solid $main-color;
+	background-color: transparent;
+	border-radius: 5px;
+	transition: color 0.8s;
+	cursor: pointer;
+	overflow: hidden;
+	z-index: 1;
+
+	&:hover {
+		color: white;
+	}
+
+	&::before {
+		position: absolute;
+		top: 0%;
+		left: -220%;
+		width: 150%;
+		height: 100%;
+		content: '';
+		transform: skew(-45deg);
+		transition: left 0.8s, background-color 0.8s;
+		z-index: -1;
+		animation: buttonOut 0.8s forwards;
+	}
+
+	&:hover::before {
+		animation: buttonIn 0.8s forwards;
+	}
+}
+
+//START MODAL
+
+.start-modal {
+	&__icon {
+		font-size: 15rem;
+		color: $main-color;
+		line-height: 14rem;
+	}
+	&__describe {
+		font-size: 2rem;
+		text-align: center;
+	}
+	&__slider {
+		appearance: none;
+		width: 80%;
+		height: 10px;
+		background: #d3d3d3;
+		outline: none;
+		opacity: 0.7;
+		transition: opacity 0.2s;
+
+		&:hover {
+			opacity: 1;
+		}
+
+		&::-webkit-slider-thumb {
+			appearance: none;
+			width: 25px;
+			height: 25px;
+			background: $main-color;
+			border-radius: 50%;
+			cursor: pointer;
+		}
+	}
+}
+
+//MAIN GAME
+
+.game {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	height: 100%;
+	width: 100%;
+	padding: 0.1em 1em;
+
+	&__nav {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
+		align-items: center;
+		width: 100%;
+		margin-top: 1em;
+		&-brand {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+
+			i {
+				font-size: 8rem;
+				margin-right: 0.3em;
+				color: $main-color;
+				text-shadow: 0px 0px 3px black;
+			}
+			p {
+				font-size: 3rem;
+				font-weight: bold;
+				color: white;
+			}
+		}
+
+		&-box {
+			color: white;
+			background-color: $main-color;
+			padding: 0.5em 2em;
+			text-shadow: 0px 0px 3px black;
+			box-shadow: inset 0 0 10px 0 #aba8a8;
+			border-radius: 10px;
+
+			&-title {
+				font-size: 2.8rem;
+				font-weight: bold;
+			}
+			&-time {
+				font-size: 2.5rem;
+				text-align: center;
+			}
+		}
+	}
+
+	&__board {
+		display: grid;
+		align-items: center;
+		justify-items: center;
+		grid-template-rows: 1fr 1fr 1fr 1fr;
+		grid-template-columns: 1fr 1fr 1fr 1fr;
+		gap: 20px;
+		width: 50vw;
+		margin-top: 2em;
+		padding: 0.5em;
+
+		&-card {
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: #eee;
+			box-shadow: inset 0px 0px 10px 0px rgba(66, 68, 90, 1);
+			border-radius: 10px;
+			cursor: pointer;
+			width: 150px;
+			height: 150px;
+			transition: transform 0.3s, opacity 0.3s;
+
+			.icon {
+				font-size: 5rem;
+				color: $main-color;
+				text-shadow: 0px 0px 2px black;
+			}
+			&--back {
+				position: absolute;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				display: flex;
+				justify-content: space-evenly;
+				align-items: center;
+				flex-direction: column;
+				background-color: #eee;
+				box-shadow: inset 0px 0px 10px 0px rgba(66, 68, 90, 1);
+				border-radius: 10px;
+				cursor: pointer;
+				width: 150px;
+				height: 150px;
+				opacity: 0;
+				transform: rotateY(180deg);
+				transition: transform 0.3s, opacity 0.3s;
+
+				i {
+					font-size: 6rem;
+					transform: rotateY(180deg);
+				}
+				p {
+					text-transform: uppercase;
+					font-weight: bold;
+					font-size: 2rem;
+					transform: rotateY(180deg);
+				}
+			}
+		}
+	}
+}
+
+//END MODAL
+
+.end-modal {
+	transform: translate(-50%, -200%);
+	&__title {
+		font-weight: 600;
+		font-size: 2.5rem;
+	}
+
+	&__trophy {
+		margin-bottom: 0.1em;
+		font-size: 10rem;
+		color: $main-color;
+		text-shadow: -2.5px -2.5px 0px black;
+		animation: trophyAnimation 2s infinite;
+	}
+
+	&__time {
+		font-size: 2rem;
+	}
+}
+
+//ANIMATION CLASSES
+
+.hide-start-modal {
+	animation: hideModal 1s forwards;
+}
+
+.hide-shadow {
+	animation: hideShadow 1s 1s forwards;
+}
+
+.show-start-modal {
+	animation: showModal 1s forwards;
+}
+
+.show-shadow {
+	animation: showShadow 1s 1s forwards;
+}
+
+.show-card {
+	animation: showCard 0.3s forwards;
+}
+.show-front {
+	animation: showFront 0.3s forwards;
+}
+.hide-back {
+	animation: hideBack 0.3s forwards;
+}
+.hide-card {
+	animation: hideCard 0.3s forwards;
+}
+.hide-front {
+	animation: hideCard 0.3s forwards;
+}
+.show-back {
+	animation: hideFront 0.3s forwards;
+}
+.delete-card {
+	animation: deleteCards 0.5s forwards;
+}
+
+//MEDIA QUERIES
+
+@media (max-width: 992px) {
+	.start-modal {
+		width: 60%;
+	}
+
+	.end-modal {
+		width: 60%;
+	}
+
+	.game {
+		&__board {
+			gap: auto;
+			width: 90vw;
+			margin-top: 2em;
+		}
+	}
+}
+
+@media (max-width: 776px) {
+	.start-modal {
+		width: 80%;
+	}
+	.end-modal {
+		width: 80%;
+	}
+
+	.game {
+		&__nav {
+			&-brand {
+				i {
+					font-size: 7rem;
+					margin-right: 0.2em;
+				}
+				p {
+					font-size: 2.5rem;
+				}
+			}
+
+			&-box {
+				padding: 0.5em 1.5em;
+
+				&-title {
+					font-size: 2.4rem;
+				}
+				&-time {
+					font-size: 2.1rem;
+				}
+			}
+		}
+
+		&__board {
+			width: 80vw;
+
+			&-card {
+				width: 100px;
+				height: 100px;
+				.icon {
+					font-size: 3.3rem;
+					text-shadow: 0px 0px 1px black;
+				}
+				&--back {
+					width: 100px;
+					height: 100px;
+
+					i {
+						font-size: 3.3rem;
+					}
+					p {
+						font-size: 1.5rem;
+					}
+				}
+			}
+		}
+	}
+
+	.end-modal {
+		&__brand {
+			i {
+				font-size: 7rem;
+			}
+			p {
+				font-size: 2.5rem;
+			}
+		}
+		&__title {
+			font-size: 2.3rem;
+		}
+
+		&__trophy {
+			font-size: 10rem;
+		}
+
+		&__time {
+			font-size: 2.1rem;
+		}
+		&__btn {
+			font-size: 1.8rem;
+		}
+	}
+}
+
+@media (max-width: 576px) {
+	.start-modal {
+		&__brand {
+			i {
+				font-size: 5rem;
+			}
+			p {
+				font-size: 2.3rem;
+			}
+		}
+
+		&__icon {
+			font-size: 12rem;
+		}
+		&__describe {
+			font-size: 1.8rem;
+		}
+		&__slider {
+			height: 8px;
+
+			&::-webkit-slider-thumb {
+				width: 18px;
+				height: 18px;
+			}
+		}
+
+		&__btn {
+			font-size: 1.5rem;
+		}
+	}
+
+	.game {
+		&__nav {
+			&-brand {
+				i {
+					font-size: 5rem;
+					margin-right: 0.1em;
+				}
+				p {
+					font-size: 2rem;
+				}
+			}
+
+			&-box {
+				padding: 0.3em 1.2em;
+
+				&-title {
+					font-size: 2.1rem;
+				}
+				&-time {
+					font-size: 1.8rem;
+				}
+			}
+		}
+
+		&__board {
+			gap: auto;
+			width: 100vw;
+			margin-top: 2em;
+
+			&-card {
+				width: 75px;
+				height: 75px;
+				.icon {
+					font-size: 2.5rem;
+					text-shadow: 0px 0px 1px black;
+				}
+				&--back {
+					width: 75px;
+					height: 75px;
+
+					i {
+						font-size: 2.5rem;
+					}
+					p {
+						font-size: 1.3rem;
+					}
+				}
+			}
+		}
+	}
+
+	.end-modal {
+		&__brand {
+			i {
+				font-size: 5rem;
+			}
+			p {
+				font-size: 2.3rem;
+			}
+		}
+		&__title {
+			font-size: 2rem;
+		}
+
+		&__trophy {
+			font-size: 9rem;
+		}
+
+		&__time {
+			font-size: 1.8rem;
+		}
+		&__btn {
+			font-size: 1.5rem;
+		}
+	}
+}
+
+//ANIMATIONS
+
+@keyframes buttonIn {
+	from {
+		left: -220%;
+		background-color: transparent;
+	}
+	to {
+		left: -20%;
+		background-color: $main-color;
+	}
+}
+
+@keyframes buttonOut {
+	from {
+		left: -20%;
+		background-color: $main-color;
+	}
+	to {
+		left: -220%;
+		background-color: transparent;
+	}
+}
+
+@keyframes hideModal {
+	from {
+		transform: translate(-50%, -50%);
+	}
+	to {
+		transform: translate(-50%, -200%);
+	}
+}
+
+@keyframes hideShadow {
+	from {
+		background-color: rgba(0, 0, 0, 0.65);
+	}
+	to {
+		background-color: rgba(0, 0, 0, 0);
+		display: none;
+	}
+}
+
+@keyframes showModal {
+	from {
+		transform: translate(-50%, -200%);
+	}
+	to {
+		transform: translate(-50%, -50%);
+	}
+}
+
+@keyframes showShadow {
+	from {
+		background-color: rgba(0, 0, 0, 0);
+		display: none;
+	}
+	to {
+		background-color: rgba(0, 0, 0, 0.65);
+	}
+}
+
+@keyframes showCard {
+	from {
+		transform: rotateY(0deg);
+	}
+	to {
+		transform: rotateY(-180deg);
+	}
+}
+
+@keyframes showFront {
+	from {
+		transform: rotateY(0deg);
+		opacity: 1;
+	}
+	to {
+		transform: rotateY(-180deg);
+		opacity: 0;
+	}
+}
+@keyframes hideBack {
+	from {
+		transform: rotateY(180deg);
+		opacity: 0;
+	}
+	to {
+		transform: rotateY(0deg);
+		opacity: 1;
+	}
+}
+
+@keyframes hideCard {
+	from {
+		transform: rotateY(0deg);
+	}
+	to {
+		transform: rotateY(180deg);
+	}
+}
+
+@keyframes hideFront {
+	from {
+		transform: rotateY(-180deg);
+		opacity: 1;
+	}
+	to {
+		transform: rotateY(0deg);
+		opacity: 0;
+	}
+}
+@keyframes showBack {
+	from {
+		transform: rotateY(0deg);
+		opacity: 1;
+	}
+	to {
+		transform: rotateY(180deg);
+		opacity: 0;
+	}
+}
+
+@keyframes deleteCards {
+	from {
+		opacity: 100%;
+	}
+	to {
+		opacity: 0%;
+		cursor: none;
+		visibility: hidden;
+	}
+}
+
+@keyframes trophyAnimation {
+	0% {
+		transform: scale(1) rotateZ(5deg);
+		text-shadow: -2.5px -2.5px 0px black;
+	}
+	50% {
+		transform: scale(1.5) rotateZ(-15deg);
+		text-shadow: -5px -5px 5px black;
+	}
+	100% {
+		transform: scale(1) rotateZ(5deg);
+		text-shadow: -2.5px -2.5px 0px black;
+	}
+}

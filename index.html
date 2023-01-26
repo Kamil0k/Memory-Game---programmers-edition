@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./dist/img/icons/code.svg" />
+    <title>Memory Game - programmers edition</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/iconfont/tabler-icons.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./dist/css/style.min.css">
+</head>
+
+<body>
+
+    <div class="modal-shadow">
+        <div class="start-modal modal">
+            <div class="start-modal__brand brand">
+                <i class="ti ti-code"></i>
+                <p>Memory Game - <br>programmers edition</p>
+            </div>
+            <p class="start-modal__icon">♟</p>
+            <p class="start-modal__describe">Game level: junior<br> 16 cards</p>
+            <input type="range" min="0" max="3" value="0" class="start-modal__slider">
+            <button class="start-modal__btn btn">start game</button>
+        </div>
+    </div>
+
+    <div class="game">
+        <div class="game__nav">
+            <div class="game__nav-brand">
+                <i class="ti ti-code"></i>
+                <p>Memory Game - programmers edition</p>
+            </div>
+            <div class="game__nav-box">
+                <p class="game__nav-box-title">Time:</p>
+                <p class="game__nav-box-time">00:00</p>
+            </div>
+        </div>
+
+        <div class="game__board">
+
+        </div>
+    </div>
+
+    <div class="modal-shadow modal-shadow--end">
+        <div class="end-modal modal">
+            <div class="end-modal__brand brand">
+                <i class="ti ti-code"></i>
+                <p>Memory Game - <br>programmers edition</p>
+            </div>
+            <p class="end-modal__title">Congratulations!</p>
+            <i class="ti ti-trophy end-modal__trophy"></i>
+            <p class="end-modal__time">Playing time:</p>
+            <button class="end-modal__btn btn">play again</button>
+        </div>
+    </div>
+
+    <script src="./dist/js/script.min.js"></script>
+</body>
+
+</html>
